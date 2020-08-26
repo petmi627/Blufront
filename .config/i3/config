@@ -34,20 +34,6 @@
 #set Super key
 set $mod Mod4
 
-
-
-#####################################################################################################################
-#################                          Define the movements keys - variables                    #################
-#####################################################################################################################
-
-
-#This is setup for qwerty
-set $up l
-set $down k
-set $left j
-set $right semicolon
-
-
 #####################################################################################################################
 #################                          Single and Dual screen                                   #################
 #####################################################################################################################
@@ -124,7 +110,7 @@ bindsym $mod+Shift+0 move container to workspace 10; workspace 10
 #####################################################################################################################
 
 # start dmenu
-bindsym $mod+shift+d exec --no-startup-id dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
+bindsym $mod+shift+d exec --no-startup-id dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=16'
 
 # gmrun
 bindsym mod1+F2 exec --no-startup-id gmrun
@@ -153,20 +139,19 @@ bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed 
 bindsym $mod+X mode "$mode_system"
 bindsym control+mod1+Delete mode "$mode_system"
 
-set $mode_system System (k) lock, (l) logout, (u) suspend, (h) hibernate, (r) reboot, (s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym k exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
-    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
-    bindsym u exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
     bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
     bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
-    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 
 
 #####################################################################################################################
@@ -204,23 +189,11 @@ floating_modifier $mod
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -229,12 +202,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 
-
-
 #####################################################################################################################
 #################                          moving around workspaces                                 #################
 #####################################################################################################################
-
 
 # next/previous workspace
 
@@ -248,9 +218,6 @@ bindsym Mod1+Ctrl+Left workspace prev
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
-
-
-
 
 
 #####################################################################################################################
@@ -341,6 +308,12 @@ assign [class="Chromium|Google-chrome"]                                         
 # Workspace 2 text editor related
 assign [class="sublime-text|sublime_text|Sublime_text|subl|Subl|subl3|Subl3"]       → 3
 assign [class="Xed|xed|Brackets|Atom|Code|Geany"]                                   → 3
+assign [class="^jetbrains-pycharm$"]                                                → 3
+assign [class="^jetbrains-phpstorm$"]                                               → 3
+assign [class="^jetbrains-clion$"]                                                  → 3
+assign [class="^jetbrains-idea$"]                                                  → 3
+assign [class="^jetbrains-rider$"]                                                  → 3
+
 
 # Workspace 3 Inkscape
 #assign [class="Inkscape"]                                                           → 3
@@ -354,26 +327,21 @@ assign [class="Xed|xed|Brackets|Atom|Code|Geany"]                               
 #assign [class="Meld"]                                                               → 5
 
 # Workspace 6 all video related software
-assign [class="Vlc|vlc"]                                                            → 6
-assign [class="Spotify|spotify"]                                                    → 6
-assign [class="Rhythmbox|rhythmbox"]                                                → 6
-
+assign [class="Vlc|vlc"]                                                             → 6
+assign [class="^Spotify$|Spotify|spotify"]                                           → 6
+assign [class="Rhythmbox|rhythmbox"]                                                 → 6
 
 # Workspace 7 virtual machines and settings
-#assign [class="Vmplayer|VirtualBox"]						    → 7
+#assign [class="Vmplayer|VirtualBox"]					             → 7
 
 # Workspace 8 file managers
 #assign [class="Nemo|Thunar|Caja|nautilus|Nautilus"]                                 → 8
 
-# Workspace 9 email clients
-#assign [class="Geary|Evolution"]                                                    → 9
-
-# Workspace 10 music related
-#assign [class="Spotify|spotify"]                                                    → 10
-#fix for spotify not moving to workspace 10
-#for_window [class="Spotify"] move to workspace 10
-
-
+# Workspace 9 email clients and communication
+assign [class="Geary|Evolution"]                                                      → 9
+assign [class="Thunderbird"]                                                          → 9
+assign [class="^TeamSpeak\\ 3$|^TeamSpeak 3$"]                                        → 9
+assign [class="^discord$"]                                                            → 9
 
 
 #####################################################################################################################
@@ -386,7 +354,7 @@ assign [class="Rhythmbox|rhythmbox"]                                            
 exec_always --no-startup-id ~/.config/polybar/scripts/launch.sh &
 
 #wallpaper
-exec --no-startup-id feh --bg-scale ~/Pictures/Exusiai-Arknights-Texas-Arknights-Arknights-anime-clouds-drone-UAVs-Silk-stockings-1774789.jpg
+exec --no-startup-id feh --bg-scale ~/Pictures/Wallpaper.jpg
 
 
 #browser
@@ -513,9 +481,9 @@ bindsym $mod+F7 exec --no-startup-id virtualbox;workspace 7;focus
 
 #workspace 8 related
 for_window [class="Nemo"] focus
-bindsym $mod+F8 exec --no-startup-id nemo;workspace 8;focus
-bindsym $mod+Shift+Return exec --no-startup-id nemo; workspace 8;focus
-bindsym control+mod1+b exec --no-startup-id nemo;workspace 8;focus
+bindsym $mod+F8 exec --no-startup-id nemo
+bindsym $mod+Shift+Return exec --no-startup-id nemo
+bindsym control+mod1+b exec --no-startup-id nemo
 
 #workspace 9 related
 bindsym $mod+F9 exec --no-startup-id evolution;workspace 9;focus
@@ -524,8 +492,8 @@ bindsym control+mod1+e exec --no-startup-id evolution;workspace 9;focus
 #bindsym control+mod1+e exec --no-startup-id geary;workspace 9;focus
 
 #workspace 10 related
-bindsym $mod+F10 exec --no-startup-id spotify;workspace 10;focus
-bindsym control+mod1+s exec --no-startup-id spotify;workspace 10;focus
+bindsym $mod+F10 exec --no-startup-id spotify;workspace 6;focus
+bindsym control+mod1+s exec --no-startup-id spotify;workspace 6;focus
 
 #####################################################################################################################
 #################                          screenshots                                              #################

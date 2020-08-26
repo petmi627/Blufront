@@ -10,14 +10,24 @@ do
 	player_status=$(/usr/bin/playerctl -p "$i" status 2> /dev/null)
 	if [[ $? -eq 0 ]]; then
 	    case $player_status in
-                Playing|Paused)
+                Playing)
         	        artist="$(/usr/bin/playerctl -p $i metadata artist)"
          	        if [[ -z "$artist" ]]; then
          		        metadata="$(/usr/bin/playerctl -p $i metadata title)"
     	            else
 	                    metadata="$artist - $(/usr/bin/playerctl -p $i metadata title)"
                     fi
+                    break
                 	;;
+               Paused)
+                        artist="$(/usr/bin/playerctl -p $i metadata artist)"
+                        if [[ -z "$artist" ]]; then
+                                metadata="$(/usr/bin/playerctl -p $i metadata title)"
+                    else
+                            metadata="$artist - $(/usr/bin/playerctl -p $i metadata title)"
+                    fi
+                    continue
+                        ;;
 	       *) ;;
 	    esac
         fi
