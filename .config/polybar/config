@@ -59,11 +59,11 @@ font-2 = Font Awesome 5 Brands:pixelsize=14;3
 font-3 = Font Awesome 5 Free Solid:pixelsize=14;3
 font-4 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-5 = siji:pixelsize=14;1
-
+font-6 = Weather Icons:pixelsize=14;3
 
 modules-left = bspwm i3 mpd music
 modules-center = xwindow
-modules-right = ts3 filesystem pulseaudio xkeyboard memory cpu eth date powermenu
+modules-right = ts3 weather filesystem pulseaudio xkeyboard memory cpu eth date powermenu
 
 tray-position = right
 tray-padding = 0
@@ -432,6 +432,14 @@ tail = true
 ;interval = 2
 click-left = ~/.config/polybar/scripts/ts3.py toogle_sound
 click-right = ~/.config/polybar/scripts/ts3.py toogle_mute
+
+[module/weather]
+type = custom/script
+label-font = Weather Icons:pixelsize=14;3 
+label = %{T7}%output%%{T-}
+exec = python3 -u ~/.config/polybar/scripts/weather.py Diekirch,LU
+interval = 600
+click-left = firefox https://openweathermap.org/?q=Diekirch,LU
 
 [settings]
 screenchange-reload = true
