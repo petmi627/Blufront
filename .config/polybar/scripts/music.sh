@@ -41,9 +41,9 @@ fi
 
 # Foreground color formatting tags are optional
 if [[ $player_status = "Playing" ]]; then
-    echo "%{F#FFFFFF}▶ $output%{F-}"
+    echo "%{F#FFFFFF} $output%{F-}"
 elif [[ $player_status = "Paused" ]]; then
-    echo "%{F#999}$output%{F-}"
+    echo "%{F#999} $output%{F-}"
 else
     echo ""
 fi
