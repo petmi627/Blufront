@@ -119,10 +119,10 @@ bindsym mod1+F2 exec --no-startup-id gmrun
 bindsym mod1+F3 exec --no-startup-id xfce4-appfinder
 
 # start rofi full
-bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto Sans 13"
+bindsym $mod+F11 exec --no-startup-id rofi -combi-modi "drun#run" -fullscreen -font "Noto Sans 13" -show combi
 
 # start rofi small
-bindsym $mod+F12 exec --no-startup-id rofi -show run -font "Noto Sans 13"
+bindsym $mod+F12 exec --no-startup-id rofi -combi-modi "drun#run" -font "Noto Sans 13" -show combi
 
 
 
