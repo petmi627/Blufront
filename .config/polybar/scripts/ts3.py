@@ -6,7 +6,7 @@ try:
         # Note, that the client will wait for the response and raise a
         # **TS3QueryError** if the error id of the response is not 0.
         try:
-            ts3conn.auth(apikey="")
+            ts3conn.auth(apikey="DLJO-RM2A-GNRB-01ZF-JM7Q-OH5K")
         except ts3.query.TS3QueryError as err:
             print("Login failed:", err.resp.error["msg"])
             exit(1)
@@ -32,25 +32,28 @@ try:
                 else:
                     ts3conn.clientupdate(client_away=0)
         else:
-#            while True:
-            time.sleep(0.3)
-            ts3conn.channelconnectinfo()
-            cid = ts3conn.whoami().parsed[0]["cid"]
-            if int(ts3conn.clientvariable(clid=clid, client_output_muted=None).parsed[0]['client_output_muted']) == 1:
-                print("Sound Muted")
-            else:
-                resp = ts3conn.channelclientlist(cid=cid, voice=True)
-                speaking = []
-                for client in resp.parsed:
-                    if int(client["client_flag_talking"]) > 0:
-                        speaking.append(client['client_nickname'])
-                if len(speaking) > 0:
-                    print(", ".join(speaking))
-                else:
-                    print("No Sound")
+            while True:
+                try:
+                    time.sleep(0.5)
+                    ts3conn.channelconnectinfo()
+                    cid = ts3conn.whoami().parsed[0]["cid"]
+                    if int(ts3conn.clientvariable(clid=clid, client_output_muted=None).parsed[0]['client_output_muted']) == 1:
+                        sys.stdout.write("Sound Muted\n")
+                    else:
+                        resp = ts3conn.channelclientlist(cid=cid, voice=True)
+                        speaking = []
+                        for client in resp.parsed:
+                            if int(client["client_flag_talking"]) > 0:
+                                speaking.append(client['client_nickname'])
+                        if len(speaking) > 0:
+                            sys.stdout.write(", ".join(speaking) + "\n")
+                        else:
+                            sys.stdout.write("No Sound\n")
+                except BaseException as e:
+                    time.sleep(1)
+                    continue
 
     ts3conn.quit()
     ts3conn.close()
-#except ts3.query.TS3TimeoutError as e:
 except BaseException as e:
     exit(1)
