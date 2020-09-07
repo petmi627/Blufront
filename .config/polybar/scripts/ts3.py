@@ -44,14 +44,18 @@ try:
                         speaking = []
                         for client in resp.parsed:
                             if int(client["client_flag_talking"]) > 0:
-                                speaking.append(client['client_nickname'])
-#                        if len(speaking) > 2:
-#                            sys.stdout.write(" " + speaking[0] + ", " speaking[1] + " and " + str(len(speaking)-2) + " others" + "\n")
-                        if len(speaking) > 0:
+                                if len(client['client_nickname']) < 11:
+                                    speaking.append(client['client_nickname'])
+                                else:
+                                    speaking.append(client['client_nickname'][0:10] + "...")
+                        if len(speaking) > 2:
+                            sys.stdout.write("  {}, {} and {} others\n".format(speaking[0], speaking[1], str(len(speaking)-2)))
+                        elif len(speaking) > 0:
                             sys.stdout.write("  " + ", ".join(speaking) + "\n")
                         else:
                             sys.stdout.write(" \n")
                 except BaseException as e:
+                    sys.stdout.write("\n")
                     time.sleep(1)
                     continue
 
